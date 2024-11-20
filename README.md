@@ -15,8 +15,8 @@ Sinatra で作られたシンプルなメモアプリです。
 1. リポジトリを clone します。
 
    ```bash
-   git clone https://github.com/your_username/your_repository_name.git
-   cd your_repository_name
+   git clone https://github.com/note103/sinatra-practice.git
+   cd sinatra-practice
    ```
 
 2. Bundler を使って Gem をインストールします。
