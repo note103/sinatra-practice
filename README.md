@@ -27,7 +27,7 @@ Sinatra で作られたシンプルなメモアプリです。
    gem install bundler
    ```
 
-   以下のコマンドで Gem をインストールします。
+   Bundler で Gem をインストールします。
 
    ```bash
    bundle install
@@ -41,13 +41,13 @@ Sinatra で作られたシンプルなメモアプリです。
 bundle exec ruby app.rb
 ```
 
-サーバーが起動したら、ブラウザで[http://localhost:4567/](http://localhost:4567/)にアクセスして画面を確認してください。
+サーバーが起動したら、ブラウザで [http://localhost:4567/](http://localhost:4567/) にアクセスして画面を確認してください。
 
 停止する場合はターミナルで `Ctrl+C` を入力してください。
 
 ## Linter
 
-コードの品質を保つために[RuboCop](https://github.com/rubocop/rubocop)と[ERB Lint](https://github.com/Shopify/erb-lint)を使用します。
+コードの品質を保つために [RuboCop](https://github.com/rubocop/rubocop) と [ERB Lint](https://github.com/Shopify/erb-lint) を使用します。
 
 以下の内容を Gemfile に追加してください。
 
@@ -82,7 +82,7 @@ RuboCop は以下のコマンドで実行します。
 bundle exec rubocop
 ```
 
-検出された問題を自動修正する場合は以下を使用してください。
+検出された問題を自動修正する場合は、以下のコマンドを実行します。
 
 ```bash
 bundle exec rubocop --auto-correct
