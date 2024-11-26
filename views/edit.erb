@@ -3,7 +3,7 @@
 <form action="/articles/<%= @article['id'] %>" method="post">
     <input type="hidden" name="_method" value="patch">
     <div>
-        <input type="text" id="title" name="title" value="<%= h @article['title'] %>">
+        <input type="text" id="title" name="title" value="<%= h @article['title'] %>" required>
     </div>
     <div>
         <textarea id="body" name="body"><%= h @article['body'] %></textarea>
