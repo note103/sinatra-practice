@@ -55,6 +55,7 @@ body {
   line-height: 1.5;
   font-family: "Roboto", "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN",
     Meiryo, sans-serif;
+  min-height: 100vh;
   background-color: #f0f0f0;
 }
 
@@ -122,7 +123,6 @@ a:active {
 .wrapper {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
   width: 80%;
   max-width: 600px;
   background-color: white;
@@ -203,4 +203,25 @@ textarea:focus {
 
 textarea {
   min-height: 200px;
+}
+
+/* メディアクエリ */
+@media screen and (max-width: 768px) {
+  body {
+    min-height: 60vh;
+  }
+
+  .wrapper {
+    width: 90%;
+    padding: 2rem;
+  }
+
+  input[type="text"],
+  textarea {
+    font-size: 0.9rem;
+  }
+
+  textarea {
+    min-height: 150px;
+  }
 }
