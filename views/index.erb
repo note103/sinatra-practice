@@ -1,0 +1,15 @@
+<% @title = "記事一覧" %>
+
+<div class="flex-right">
+  <a href="/articles/new" class="button">新規投稿</a>
+</div>
+
+<div class="article-list">
+  <ul>
+    <% @articles.each do |article| %>
+    <li>
+      <a href="/articles/<%= article['id'] %>"><%= h article['title'] %></a>
+    </li>
+    <% end %>
+  </ul>
+</div>
