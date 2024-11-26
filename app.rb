@@ -4,6 +4,7 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'json'
 require 'securerandom'
+require_relative 'models/article_repository'
 
 ARTICLES = 'articles.json'
 
@@ -31,7 +32,7 @@ end
 
 # 一覧表示
 get '/articles' do
-  @articles = load_articles
+  @articles = ArticleRepository.all
   erb :index
 end
 
@@ -45,10 +46,8 @@ post '/articles' do
   title = params[:title]
   body = params[:body]
   if title && !title.empty?
-    articles = load_articles
     article = { 'id' => SecureRandom.uuid, 'title' => title, 'body' => body }
-    articles << article
-    save_articles(articles)
+    ArticleRepository.add(article)
   end
   redirect '/articles'
 end
