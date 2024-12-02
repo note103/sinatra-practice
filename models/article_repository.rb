@@ -1,39 +1,45 @@
 # frozen_string_literal: true
 
+require 'pg'
+
 class ArticleRepository
-  FILE_PATH = 'articles.json'
+  DB_NAME = 'articles_db'
 
   def self.all
-    return [] unless File.exist?(FILE_PATH)
-
-    JSON.parse(File.read(FILE_PATH))
+    connection = PG.connect(dbname: DB_NAME)
+    result = connection.exec('SELECT * FROM articles ORDER BY created_at ASC')
+    connection.close
+    result.map { |row| row }
   end
 
   def self.find(id)
-    all.find { |article| article['id'] == id }
-  end
-
-  def self.save(articles)
-    File.write(FILE_PATH, articles.to_json)
+    connection = PG.connect(dbname: DB_NAME)
+    result = connection.exec_params('SELECT * FROM articles WHERE id = $1 LIMIT 1', [id])
+    connection.close
+    result.ntuples == 1 ? result[0] : nil
   end
 
   def self.add(article)
-    articles = all
-    articles << article
-    save(articles)
+    connection = PG.connect(dbname: DB_NAME)
+    connection.exec_params(
+      'INSERT INTO articles (title, body, created_at) VALUES ($1, $2, NOW())',
+      [article['title'], article['body'] || '']
+    )
+    connection.close
   end
 
   def self.update(id, attributes)
-    articles = all
-    article = articles.find { |a| a['id'] == id }
-    return unless article
-
-    article.merge!(attributes)
-    save(articles)
+    connection = PG.connect(dbname: DB_NAME)
+    connection.exec_params(
+      'UPDATE articles SET title = $1, body = $2 WHERE id = $3',
+      [attributes['title'], attributes['body'] || '', id]
+    )
+    connection.close
   end
 
   def self.delete(id)
-    articles = all.reject { |article| article['id'] == id }
-    save(articles)
+    connection = PG.connect(dbname: DB_NAME)
+    connection.exec_params('DELETE FROM articles WHERE id = $1', [id])
+    connection.close
   end
 end
