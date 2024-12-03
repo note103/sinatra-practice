@@ -28,13 +28,14 @@ end
 
 # 記事投稿
 post '/articles' do
-  title = params[:title]
-  body = params[:body]
+  title = params[:title]&.strip
+  body = params[:body]&.strip
+  created_at = Time.now
 
-  if title.nil? || title.strip.empty?
+  if title.nil? || title.empty?
     redirect '/articles/new'
   else
-    article = { 'title' => title, 'body' => body }
+    article = { 'title' => title, 'body' => body, 'created_at' => created_at }
     new_id = ArticleRepository.add(article)
     redirect "/articles/#{new_id}"
   end
@@ -49,12 +50,12 @@ end
 
 # 記事編集
 patch '/articles/:id' do
-  title = params[:title]
-  body = params[:body]
+  title = params[:title]&.strip
+  body = params[:body]&.strip
   article = ArticleRepository.find(params[:id].to_i)
   halt 404 unless article
 
-  if title.nil? || title.strip.empty?
+  if title.nil? || title.empty?
     redirect "/articles/#{params[:id]}/edit"
   else
     updated_article = { 'title' => title, 'body' => body }
