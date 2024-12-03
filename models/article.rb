@@ -1,26 +1,23 @@
 # frozen_string_literal: true
 
 class Article
-  attr_reader :id, :title, :body
+  attr_accessor :id, :title, :body
 
-  def initialize(id:, title:, body:)
+  def initialize(title:, body:, id: nil)
     @id = id
     @title = title
     @body = body
   end
 
   def save
-    ArticleRepository.add(to_h)
-  end
-
-  def to_h
-    { 'id' => id, 'title' => title, 'body' => body }
+    if id.nil?
+      @id = ArticleRepository.add(self)
+    else
+      ArticleRepository.update(id, { title: title, body: body })
+    end
   end
 
   def self.find(id)
-    data = ArticleRepository.find(id)
-    return nil unless data
-
-    new(**data)
+    ArticleRepository.find(id)
   end
 end

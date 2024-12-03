@@ -30,11 +30,14 @@ end
 post '/articles' do
   title = params[:title]
   body = params[:body]
-  if title && !title.empty?
+
+  if title.nil? || title.strip.empty?
+    redirect '/articles/new'
+  else
     article = { 'title' => title, 'body' => body }
-    ArticleRepository.add(article)
+    new_id = ArticleRepository.add(article)
+    redirect "/articles/#{new_id}"
   end
-  redirect '/articles'
 end
 
 # 編集ページ表示
@@ -51,12 +54,13 @@ patch '/articles/:id' do
   article = ArticleRepository.find(params[:id].to_i)
   halt 404 unless article
 
-  if title && !title.empty?
-    article['title'] = title
-    article['body'] = body
-    ArticleRepository.update(article['id'], { 'title' => article['title'], 'body' => article['body'] })
+  if title.nil? || title.strip.empty?
+    redirect "/articles/#{params[:id]}/edit"
+  else
+    updated_article = { 'title' => title, 'body' => body }
+    ArticleRepository.update(params[:id].to_i, updated_article)
+    redirect '/articles'
   end
-  redirect "/articles/#{params[:id]}"
 end
 
 # 個別記事表示
