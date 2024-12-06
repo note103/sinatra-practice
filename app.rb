@@ -28,11 +28,11 @@ end
 
 # 記事投稿
 post '/articles' do
-  title = params[:title]&.strip
-  body = params[:body]&.strip
+  title = params[:title].strip
+  body = params[:body].strip
   created_at = Time.now
 
-  if title.nil? || title.empty?
+  if title.nil? || title.strip.empty?
     redirect '/articles/new'
   else
     article = { 'title' => title, 'body' => body, 'created_at' => created_at }
@@ -50,18 +50,17 @@ end
 
 # 記事編集
 patch '/articles/:id' do
-  title = params[:title]&.strip
-  body = params[:body]&.strip
-  article = ArticleRepository.find(params[:id].to_i)
+  id = params[:id].to_i
+  title = params[:title].strip
+  body = params[:body].strip
+
+  article = ArticleRepository.find(id)
   halt 404 unless article
 
-  if title.nil? || title.empty?
-    redirect "/articles/#{params[:id]}/edit"
-  else
-    updated_article = { 'title' => title, 'body' => body }
-    ArticleRepository.update(params[:id].to_i, updated_article)
-    redirect '/articles'
-  end
+  redirect "/articles/#{id}/edit" if title.empty?
+
+  ArticleRepository.update(id, 'title' => title, 'body' => body)
+  redirect '/articles'
 end
 
 # 個別記事表示
