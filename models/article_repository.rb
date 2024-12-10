@@ -23,19 +23,23 @@ class ArticleRepository
     result.to_a
   end
 
+  def self.sym_keys(hash)
+    hash&.transform_keys(&:to_sym)
+  end
+
   # 特定の記事を取得
   def self.find(id)
     result = conn.exec_prepared('select_by_id', [id])
-    result[0]
+    sym_keys(result[0])
   end
 
   # 記事投稿
   def self.add(article)
     result = conn.exec_prepared(
       'insert_article',
-      [article['title'], article['body'] || '']
+      [article[:title], article[:body] || '']
     )
-    result[0]['id'].to_i
+    sym_keys(result[0])[:id].to_i
   end
 
   # 記事編集

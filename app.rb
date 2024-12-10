@@ -4,7 +4,6 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'pg'
 require_relative 'models/article_repository'
-require_relative 'models/article'
 
 helpers do
   include Rack::Utils
@@ -35,7 +34,7 @@ post '/articles' do
   if title.nil? || title.strip.empty?
     redirect '/articles/new'
   else
-    article = { 'title' => title, 'body' => body }
+    article = { title: title, body: body }
     new_id = ArticleRepository.add(article)
     redirect "/articles/#{new_id}"
   end
@@ -50,11 +49,11 @@ end
 
 # 記事編集
 patch '/articles/:id' do
-  article = Article.find(params[:id])
-  article['title'] = params[:title]
-  article['body'] = params[:body]
-  ArticleRepository.update(article['id'], { title: article['title'], body: article['body'] })
-  redirect "/articles/#{article['id']}"
+  article = ArticleRepository.find(params[:id].to_i)
+  article[:title] = params[:title]
+  article[:body] = params[:body]
+  ArticleRepository.update(article[:id], { title: article[:title], body: article[:body] })
+  redirect "/articles/#{article[:id]}"
 end
 
 # 個別記事表示
