@@ -142,7 +142,6 @@ PLATFORMS
 
 DEPENDENCIES
   erb_lint
-  json
   pg
   rackup
   rubocop-fjord
