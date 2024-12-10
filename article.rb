@@ -2,7 +2,7 @@
 
 require 'pg'
 
-class ArticleRepository
+class Article
   DB_NAME = 'articles_db'
 
   def self.conn
@@ -57,4 +57,4 @@ class ArticleRepository
   end
 end
 
-ArticleRepository.prepare_statements
+Article.prepare_statements

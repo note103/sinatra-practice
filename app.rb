@@ -3,7 +3,7 @@
 require 'sinatra'
 require 'sinatra/reloader'
 require 'pg'
-require_relative 'models/article_repository'
+require_relative 'article'
 
 helpers do
   include Rack::Utils
@@ -17,7 +17,7 @@ end
 
 # 一覧表示
 get '/articles' do
-  @articles = ArticleRepository.all
+  @articles = Article.all
   erb :index
 end
 
@@ -35,37 +35,37 @@ post '/articles' do
     redirect '/articles/new'
   else
     article = { title: title, body: body }
-    new_id = ArticleRepository.add(article)
+    new_id = Article.add(article)
     redirect "/articles/#{new_id}"
   end
 end
 
 # 編集ページ表示
 get '/articles/:id/edit' do
-  @article = ArticleRepository.find(params[:id].to_i)
+  @article = Article.find(params[:id].to_i)
   halt 404 unless @article
   erb :edit
 end
 
 # 記事編集
 patch '/articles/:id' do
-  article = ArticleRepository.find(params[:id].to_i)
+  article = Article.find(params[:id].to_i)
   article[:title] = params[:title]
   article[:body] = params[:body]
-  ArticleRepository.update(article[:id], { title: article[:title], body: article[:body] })
+  Article.update(article[:id], { title: article[:title], body: article[:body] })
   redirect "/articles/#{article[:id]}"
 end
 
 # 個別記事表示
 get '/articles/:id' do
-  @article = ArticleRepository.find(params[:id].to_i)
+  @article = Article.find(params[:id].to_i)
   halt 404 unless @article
   erb :show
 end
 
 # 記事削除
 delete '/articles/:id' do
-  ArticleRepository.delete(params[:id].to_i)
+  Article.delete(params[:id].to_i)
   redirect '/articles'
 end
 
