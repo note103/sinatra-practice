@@ -29,9 +29,17 @@ end
 
 # 記事投稿
 post '/articles' do
-  article = Article.new(title: params[:title], body: params[:body])
-  article.save
-  redirect '/articles'
+  title = params[:title].strip
+  body = params[:body].strip
+  created_at = Time.now
+
+  if title.nil? || title.strip.empty?
+    redirect '/articles/new'
+  else
+    article = { 'title' => title, 'body' => body, 'created_at' => created_at }
+    new_id = ArticleRepository.add(article)
+    redirect "/articles/#{new_id}"
+  end
 end
 
 # 編集ページ表示
@@ -44,10 +52,10 @@ end
 # 記事編集
 patch '/articles/:id' do
   article = Article.find(params[:id])
-  article.title = params[:title]
-  article.body = params[:body]
-  article.save
-  redirect "/articles/#{article.id}"
+  article['title'] = params[:title]
+  article['body'] = params[:body]
+  ArticleRepository.update(article['id'], { title: article['title'], body: article['body'] })
+  redirect "/articles/#{article['id']}"
 end
 
 # 個別記事表示
