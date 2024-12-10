@@ -1,12 +1,12 @@
 <% @title = "記事編集" %>
 
-<form action="/articles/<%= @article['id'] %>" method="post">
+<form action="/articles/<%= @article[:id] %>" method="post">
     <input type="hidden" name="_method" value="patch">
     <div>
-        <input type="text" id="title" name="title" value="<%= h @article['title'] %>" required>
+        <input type="text" id="title" name="title" value="<%= h @article[:title] %>" required>
     </div>
     <div>
-        <textarea id="body" name="body"><%= h @article['body'] %></textarea>
+        <textarea id="body" name="body"><%= h @article[:body] %></textarea>
     </div>
     <div>
         <input type="submit" value="保存" class="button">

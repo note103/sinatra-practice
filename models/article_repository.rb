@@ -20,9 +20,10 @@ class ArticleRepository
   # 一覧取得
   def self.all
     result = conn.exec_prepared('select_all')
-    result.to_a
+    result.map { |row| sym_keys(row) }.to_a
   end
 
+  # ハッシュのキーをシンボルに変換
   def self.sym_keys(hash)
     hash&.transform_keys(&:to_sym)
   end
