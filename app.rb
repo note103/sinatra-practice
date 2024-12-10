@@ -31,12 +31,11 @@ end
 post '/articles' do
   title = params[:title].strip
   body = params[:body].strip
-  created_at = Time.now
 
   if title.nil? || title.strip.empty?
     redirect '/articles/new'
   else
-    article = { 'title' => title, 'body' => body, 'created_at' => created_at }
+    article = { 'title' => title, 'body' => body }
     new_id = ArticleRepository.add(article)
     redirect "/articles/#{new_id}"
   end

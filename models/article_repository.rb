@@ -12,7 +12,7 @@ class ArticleRepository
   def self.prepare_statements
     conn.prepare('select_all', 'SELECT * FROM articles ORDER BY created_at ASC')
     conn.prepare('select_by_id', 'SELECT * FROM articles WHERE id = $1 LIMIT 1')
-    conn.prepare('insert_article', 'INSERT INTO articles (title, body, created_at) VALUES ($1, $2, $3) RETURNING id')
+    conn.prepare('insert_article', 'INSERT INTO articles (title, body) VALUES ($1, $2) RETURNING id')
     conn.prepare('update_article', 'UPDATE articles SET title = $1, body = $2 WHERE id = $3')
     conn.prepare('delete_article', 'DELETE FROM articles WHERE id = $1')
   end
@@ -31,10 +31,9 @@ class ArticleRepository
 
   # 記事投稿
   def self.add(article)
-    created_at = article['created_at'] || Time.now
     result = conn.exec_prepared(
       'insert_article',
-      [article['title'], article['body'] || '', created_at]
+      [article['title'], article['body'] || '']
     )
     result[0]['id'].to_i
   end
