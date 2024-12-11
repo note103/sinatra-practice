@@ -31,6 +31,8 @@ class Article
   # 特定の記事を取得
   def self.find(id)
     result = conn.exec_prepared('select_by_id', [id])
+    return nil if result.num_tuples.zero?
+
     sym_keys(result[0])
   end
 
