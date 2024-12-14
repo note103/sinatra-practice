@@ -17,23 +17,15 @@ class Article
     conn.prepare('delete_article', 'DELETE FROM articles WHERE id = $1')
   end
 
-  # 一覧取得
-  def self.all
-    result = conn.exec_prepared('select_all')
-    result.map { |row| sym_keys(row) }.to_a
-  end
-
   # ハッシュのキーをシンボルに変換
   def self.sym_keys(hash)
     hash&.transform_keys(&:to_sym)
   end
 
-  # 特定の記事を取得
-  def self.find(id)
-    result = conn.exec_prepared('select_by_id', [id])
-    return nil if result.num_tuples.zero?
-
-    sym_keys(result[0])
+  # 一覧取得
+  def self.all
+    result = conn.exec_prepared('select_all')
+    result.map { |row| sym_keys(row) }.to_a
   end
 
   # 記事投稿
@@ -43,6 +35,14 @@ class Article
       [article[:title], article[:body] || '']
     )
     sym_keys(result[0])[:id].to_i
+  end
+
+  # 特定の記事を取得
+  def self.find(id)
+    result = conn.exec_prepared('select_by_id', [id])
+    return nil if result.num_tuples.zero?
+
+    sym_keys(result[0])
   end
 
   # 記事編集
