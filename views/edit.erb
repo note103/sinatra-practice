@@ -8,7 +8,8 @@
     <div>
         <textarea id="body" name="body"><%= h @article[:body] %></textarea>
     </div>
-    <div>
+    <div class="button-wrapper">
+        <a href="/articles/<%= @article[:id] %>" class="button">キャンセル</a>
         <input type="submit" value="保存" class="button">
     </div>
 </form>
