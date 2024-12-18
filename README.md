@@ -61,7 +61,7 @@ createdb articles_db
 psql -d articles_db -f table_create.sql
 ```
 
-`table_create.sql` の内容は以下のとおりです。
+以下のSQLを直接入力してテーブルを作成しても構いません。
 
 ```sql
 CREATE TABLE articles (
