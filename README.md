@@ -90,7 +90,7 @@ bundle exec ruby app.rb
 
 以下の内容を Gemfile に追加してください。
 
-```bash
+```ruby
 group :development do
   gem 'rubocop', require: false
   gem 'rubocop-fjord', require: false
@@ -147,4 +147,4 @@ bundle exec erb_lint --lint-all
 
 ## License
 
-このプロジェクトは [MIT ライセンス](https://opensource.org/license/MIT) のもとで公開されています。詳細は [LICENSE](./LICENSE) ファイルをご覧ください。
+このプロジェクトは [MIT ライセンス](https://opensource.org/license/MIT) のもとで公開されています。詳細は [LICENSE ファイル](./LICENSE) をご覧ください。
