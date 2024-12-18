@@ -18,23 +18,31 @@ Sinatra で作られたシンプルなメモアプリです。
 
 1. リポジトリを clone します。
 
-   ```bash
-   git clone https://github.com/note103/sinatra-practice.git
-   cd sinatra-practice
-   ```
+```bash
+git clone https://github.com/note103/sinatra-practice.git
+cd sinatra-practice
+```
 
 2. Bundler を使って Gem をインストールします。
 
-   Bundler がインストールされていない場合は、事前にインストールしてください。
+Bundler がインストールされていない場合は、事前にインストールしてください。
+
+```bash
+gem install bundler
+```
+
+Bundler で Gem をインストールします。
+
+```bash
+bundle install
+```
+
 ## Database Setup
 
 このアプリは、PostgreSQL を使用してデータを保存します。以下の手順でデータベースをセットアップしてください。
 
 1. PostgreSQL をインストールします。macOS で Homebrew を使用する場合は以下のコマンドでインストールしてください。
 
-   ```bash
-   gem install bundler
-   ```
 ```bash
 brew install postgresql
 ```
@@ -53,12 +61,8 @@ createdb articles_db
 psql -d articles_db -f table_create.sql
 ```
 
-   Bundler で Gem をインストールします。
 `table_create.sql` の内容は以下のとおりです。
 
-   ```bash
-   bundle install
-   ```
 ```sql
 CREATE TABLE articles (
   id SERIAL PRIMARY KEY,
