@@ -6,8 +6,10 @@ Sinatra で作られたシンプルなメモアプリです。
 
 このアプリは以下の環境で動作確認をしています。
 
+- macOS
 - Ruby 3.3.6
 - Bundler 2.5.23
+- PostgreSQL 14.15
 - Git
 
 ## Installation
@@ -24,20 +26,51 @@ Sinatra で作られたシンプルなメモアプリです。
 2. Bundler を使って Gem をインストールします。
 
    Bundler がインストールされていない場合は、事前にインストールしてください。
+## Database Setup
+
+このアプリは、PostgreSQL を使用してデータを保存します。以下の手順でデータベースをセットアップしてください。
+
+1. PostgreSQL をインストールします。macOS で Homebrew を使用する場合は以下のコマンドでインストールしてください。
 
    ```bash
    gem install bundler
    ```
+```bash
+brew install postgresql
+```
+
+その他、OSに応じたインストール方法は[PostgreSQL公式サイト](https://www.postgresql.org/)を参照してください。
+
+2. ターミナルでデータベースを作成します。
+
+```bash
+createdb articles_db
+```
+
+3. テーブルを作成します。テーブル作成用のSQLスクリプトは `table_create.sql` に記載されています。以下のコマンドでスクリプトを実行してください。
+
+```bash
+psql -d articles_db -f table_create.sql
+```
 
    Bundler で Gem をインストールします。
+`table_create.sql` の内容は以下のとおりです。
 
    ```bash
    bundle install
    ```
+```sql
+CREATE TABLE articles (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  body TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
 
 ## Usage
 
-アプリは以下のコマンドで実行します。
+データベースの準備が完了したら、アプリを使用できます。アプリは以下のコマンドで実行します。
 
 ```bash
 bundle exec ruby app.rb
