@@ -83,6 +83,7 @@ p {
 
 a {
   color: #333;
+  transition: color 0.2s ease;
 }
 
 a:focus,
@@ -93,6 +94,10 @@ a:active {
 
 a:active {
   color: #333;
+}
+
+a:hover {
+  color: rgba(0, 0, 0, 0.4);
 }
 
 /* ボタンスタイル */
@@ -108,15 +113,23 @@ a:active {
   text-decoration: none;
   text-align: center;
   cursor: pointer;
+  transition: color 0.3s ease, background-color 0.3s ease;
 }
 
 .button:hover {
   background-color: #e3e3e3;
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .button:focus {
   outline: 2px solid #d8d8d8;
   outline-offset: 2px;
+}
+
+.delete-button-style:hover {
+  background-color: #fdc6c6;
+  border-color: #ff6666;
+  color: #a00000;
 }
 
 /* レイアウト */
@@ -133,6 +146,20 @@ a:active {
 
 .flex-right {
   display: flex;
+  justify-content: flex-end;
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button-wrapper a:first-child {
+  justify-content: flex-start;
+}
+
+.button-wrapper a:last-child {
   justify-content: flex-end;
 }
 
@@ -183,6 +210,14 @@ form div {
 label {
   display: block;
   margin-bottom: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+label[for="title"]::after {
+  content: " *";
+  font-weight: bold;
 }
 
 input[type="text"],
@@ -193,6 +228,7 @@ textarea {
   border: 1px solid #c5c5c5;
   border-radius: 4px;
   font-size: 1rem;
+  font-family: inherit;
 }
 
 input[type="text"]:focus,
