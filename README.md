@@ -55,13 +55,13 @@ brew install postgresql
 createdb articles_db
 ```
 
-3. テーブルを作成します。テーブル作成用のSQLスクリプトは `table_create.sql` に記載されています。以下のコマンドでスクリプトを実行してください。
+3. テーブルを作成し、サンプルデータを挿入します。 `table_create.sql` にテーブル作成とサンプルデータ挿入のSQLスクリプトが含まれています。以下のコマンドでスクリプトを実行してください。
 
 ```bash
 psql -d articles_db -f table_create.sql
 ```
 
-以下のSQLを直接入力してテーブルを作成しても構いません。
+以下は `table_create.sql` の内容です。
 
 ```sql
 CREATE TABLE articles (
@@ -70,7 +70,13 @@ CREATE TABLE articles (
   body TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+INSERT INTO articles (title, body) VALUES ('SAMPLE1', 'This is a sample article.');
+INSERT INTO articles (title, body) VALUES ('SAMPLE2', 'This is another sample article.');
+INSERT INTO articles (title, body) VALUES ('SAMPLE3', 'This is the last sample article.');
 ```
+
+スクリプトを実行することで、`articles` テーブルが作成され、サンプルデータが挿入されます。
 
 ## Usage
 
