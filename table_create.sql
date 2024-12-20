@@ -5,6 +5,6 @@ CREATE TABLE articles (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO articles (title, body) VALUES ('SAMPLE1', 'This is a sample article.');
-INSERT INTO articles (title, body) VALUES ('SAMPLE2', 'This is another sample article.');
-INSERT INTO articles (title, body) VALUES ('SAMPLE3', 'This is the last sample article.');
+INSERT INTO articles (title, body) VALUES ('サンプル1', '最初のサンプルメモです。');
+INSERT INTO articles (title, body) VALUES ('サンプル2', 'ふたつめのサンプルメモです。');
+INSERT INTO articles (title, body) VALUES ('サンプル3', '最後のサンプルメモです。');
