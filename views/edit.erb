@@ -8,7 +8,7 @@
     </div>
     <div>
         <label for="body">本文</label>
-        <textarea id="body" name="body"><%= h @article[:body] %></textarea>
+        <textarea id="body" name="body" placeholder="例：人に期待するという行為は、自己責任で行う最も危険なスポーツだ。（オスカー・ラインハルト / ドイツの社会学者）"><%= h @article[:body] %></textarea>
     </div>
     <div class="button-wrapper">
         <a href="/articles/<%= @article[:id] %>" class="button">キャンセル</a>
