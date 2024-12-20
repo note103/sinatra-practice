@@ -13,6 +13,11 @@ helpers do
   def format_text(text)
     h(text).gsub("\n", '<br>')
   end
+
+  # idが整数かチェック
+  def valid_id?(id)
+    id.to_s.match?(/\A\d+\z/)
+  end
 end
 
 # 一覧表示
@@ -42,6 +47,8 @@ end
 
 # 編集ページ表示
 get '/articles/:id/edit' do
+  halt 404 unless valid_id?(params[:id])
+
   @article = Article.find(params[:id].to_i)
   halt 404 unless @article
   erb :edit
@@ -58,6 +65,8 @@ end
 
 # 個別記事表示
 get '/articles/:id' do
+  halt 404 unless valid_id?(params[:id])
+
   @article = Article.find(params[:id].to_i)
   halt 404 unless @article
   erb :show
