@@ -2,12 +2,15 @@
 
 <form action="/articles" method="post">
     <div>
-        <input type="text" id="title" name="title" required>
+        <label for="title">タイトル</label>
+        <input type="text" id="title" name="title" required placeholder="例：睡眠不足">
     </div>
     <div>
-        <textarea id="body" name="body"></textarea>
+        <label for="body">本文</label>
+        <textarea id="body" name="body" placeholder="例：仕事が終わってからプラクティスに取り組むと、寝る時間が少なくなるとわかった。"></textarea>
     </div>
-    <div>
+    <div class="button-wrapper">
+        <a href="/articles" class="button">キャンセル</a>
         <input type="submit" value="保存" class="button">
     </div>
 </form>

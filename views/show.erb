@@ -1,14 +1,17 @@
 <% @title = "記事詳細" %>
 
-<h2><%= h @article['title'] %></h2>
-<p><%= format_text(@article['body']) %></p>
+<h2><%= h @article[:title] %></h2>
+<p><%= format_text(@article[:body]) %></p>
 
-<a href="/articles/<%= @article['id'] %>/edit" class="button">編集</a>
-<form
-  action="/articles/<%= @article['id'] %>"
-  method="post"
-  style="display: inline"
-  onsubmit="return confirm('本当に削除しますか？');">
-  <input type="hidden" name="_method" value="delete">
-  <button type="submit" class="button">削除</button>
-</form>
+<div class="button-wrapper">
+  <a href="/articles" class="button">戻る</a>
+  <a href="/articles/<%= @article[:id] %>/edit" class="button">編集</a>
+  <form
+    action="/articles/<%= @article[:id] %>"
+    method="post"
+    class="delete-button"
+    onsubmit="return confirm('本当に削除しますか？');">
+    <input type="hidden" name="_method" value="delete">
+    <button type="submit" class="button delete-button-style">削除</button>
+  </form>
+</div>
