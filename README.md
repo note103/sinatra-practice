@@ -49,13 +49,19 @@ brew install postgresql
 
 その他、OSに応じたインストール方法は[PostgreSQL公式サイト](https://www.postgresql.org/)を参照してください。
 
-2. ターミナルでデータベースを作成します。
+2. PostgreSQLを起動します。
+
+```bash
+brew services start postgresql
+```
+
+3. ターミナルでデータベースを作成します。
 
 ```bash
 createdb articles_db
 ```
 
-3. テーブルを作成し、サンプルデータを挿入します。 `table_create.sql` にテーブル作成とサンプルデータ挿入のSQLスクリプトが含まれています。以下のコマンドでスクリプトを実行してください。
+4. テーブルを作成し、サンプルデータを挿入します。 `table_create.sql` にテーブル作成とサンプルデータ挿入のSQLスクリプトが含まれています。以下のコマンドでスクリプトを実行してください。
 
 ```bash
 psql -d articles_db -f table_create.sql
@@ -86,7 +92,7 @@ INSERT INTO articles (title, body) VALUES ('SAMPLE3', 'This is the last sample a
 bundle exec ruby app.rb
 ```
 
-サーバーが起動したら、ブラウザで [http://localhost:4567/](http://localhost:4567/) にアクセスして画面を確認してください。
+サーバーが起動したら、ブラウザで [http://localhost:4567/](http://localhost:4567/) にアクセスし、先ほど挿入した3件のメモが入っていることを確認してください。
 
 停止する場合はターミナルで `Ctrl+C` を入力してください。
 
