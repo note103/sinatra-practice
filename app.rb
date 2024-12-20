@@ -50,8 +50,8 @@ end
 # 記事編集
 patch '/articles/:id' do
   article = Article.find(params[:id].to_i)
-  article[:title] = params[:title]
-  article[:body] = params[:body]
+  article[:title] = params[:title].strip
+  article[:body] = params[:body].strip
   Article.update(article[:id], { title: article[:title], body: article[:body] })
   redirect "/articles/#{article[:id]}"
 end
