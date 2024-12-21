@@ -18,24 +18,24 @@ Sinatra で作られたシンプルなメモアプリです。
 
 1. リポジトリを clone します。
 
-```bash
-git clone https://github.com/note103/sinatra-practice.git
-cd sinatra-practice
-```
+   ```bash
+   git clone https://github.com/note103/sinatra-practice.git
+   cd sinatra-practice
+   ```
 
 2. Bundler を使って Gem をインストールします。
 
-Bundler がインストールされていない場合は、事前にインストールしてください。
-
-```bash
-gem install bundler
-```
-
-Bundler で Gem をインストールします。
-
-```bash
-bundle install
-```
+   Bundler がインストールされていない場合は、事前にインストールしてください。
+   
+   ```bash
+   gem install bundler
+   ```
+   
+   Bundler で Gem をインストールします。
+   
+   ```bash
+   bundle install
+   ```
 
 ## Database Setup
 
@@ -43,46 +43,46 @@ bundle install
 
 1. PostgreSQL をインストールします。macOS で Homebrew を使用する場合は以下のコマンドでインストールしてください。
 
-```bash
-brew install postgresql
-```
-
-その他、OSに応じたインストール方法は[PostgreSQL公式サイト](https://www.postgresql.org/)を参照してください。
+   ```bash
+   brew install postgresql
+   ```
+   
+   その他、OSに応じたインストール方法は[PostgreSQL公式サイト](https://www.postgresql.org/)を参照してください。
 
 2. PostgreSQLを起動します。
 
-```bash
-brew services start postgresql
-```
+   ```bash
+   brew services start postgresql
+   ```
 
 3. ターミナルでデータベースを作成します。
 
-```bash
-createdb articles_db
-```
+   ```bash
+   createdb articles_db
+   ```
 
 4. テーブルを作成し、サンプルデータを挿入します。 `table_create.sql` にテーブル作成とサンプルデータ挿入のSQLスクリプトが含まれています。以下のコマンドでスクリプトを実行してください。
 
-```bash
-psql -d articles_db -f table_create.sql
-```
-
-以下は `table_create.sql` の内容です。
-
-```sql
-CREATE TABLE articles (
-  id SERIAL PRIMARY KEY,
-  title VARCHAR(255) NOT NULL,
-  body TEXT,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-INSERT INTO articles (title, body) VALUES ('SAMPLE1', 'This is a sample article.');
-INSERT INTO articles (title, body) VALUES ('SAMPLE2', 'This is another sample article.');
-INSERT INTO articles (title, body) VALUES ('SAMPLE3', 'This is the last sample article.');
-```
-
-スクリプトを実行することで、`articles` テーブルが作成され、サンプルデータが挿入されます。
+   ```bash
+   psql -d articles_db -f table_create.sql
+   ```
+   
+   以下は `table_create.sql` の内容です。
+   
+   ```sql
+   CREATE TABLE articles (
+     id SERIAL PRIMARY KEY,
+     title VARCHAR(255) NOT NULL,
+     body TEXT,
+     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+   );
+   
+   INSERT INTO articles (title, body) VALUES ('サンプル1', '最初のサンプルメモです。');
+   INSERT INTO articles (title, body) VALUES ('サンプル2', 'ふたつめのサンプルメモです。');
+   INSERT INTO articles (title, body) VALUES ('サンプル3', '最後のサンプルメモです。');
+   ```
+   
+   スクリプトを実行することで、`articles` テーブルが作成され、サンプルデータが挿入されます。
 
 ## Usage
 
