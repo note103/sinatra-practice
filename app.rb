@@ -36,7 +36,7 @@ post '/articles' do
   title = params[:title].strip
   body = params[:body].strip
 
-  if title.nil? || title.strip.empty?
+  if title.nil? || title.empty?
     redirect '/articles/new'
   else
     article = { title: title, body: body }
