@@ -1,14 +1,17 @@
 <% @title = "記事編集" %>
 
-<form action="/articles/<%= @article['id'] %>" method="post">
+<form action="/articles/<%= @article[:id] %>" method="post">
     <input type="hidden" name="_method" value="patch">
     <div>
-        <input type="text" id="title" name="title" value="<%= h @article['title'] %>" required>
+        <label for="title">タイトル</label>
+        <input type="text" id="title" name="title" value="<%= h @article[:title] %>" required placeholder="例：今日の名言">
     </div>
     <div>
-        <textarea id="body" name="body"><%= h @article['body'] %></textarea>
+        <label for="body">本文</label>
+        <textarea id="body" name="body" placeholder="例：人に期待するという行為は、自己責任で行う最も危険なスポーツだ。（オスカー・ラインハルト / ドイツの社会学者）"><%= h @article[:body] %></textarea>
     </div>
-    <div>
+    <div class="button-wrapper">
+        <a href="/articles/<%= @article[:id] %>" class="button">キャンセル</a>
         <input type="submit" value="保存" class="button">
     </div>
 </form>

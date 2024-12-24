@@ -6,8 +6,10 @@ Sinatra で作られたシンプルなメモアプリです。
 
 このアプリは以下の環境で動作確認をしています。
 
+- macOS
 - Ruby 3.3.6
 - Bundler 2.5.23
+- PostgreSQL 14.15
 - Git
 
 ## Installation
@@ -24,26 +26,73 @@ Sinatra で作られたシンプルなメモアプリです。
 2. Bundler を使って Gem をインストールします。
 
    Bundler がインストールされていない場合は、事前にインストールしてください。
-
+   
    ```bash
    gem install bundler
    ```
-
+   
    Bundler で Gem をインストールします。
-
+   
    ```bash
    bundle install
    ```
 
+## Database Setup
+
+このアプリは、PostgreSQL を使用してデータを保存します。以下の手順でデータベースをセットアップしてください。
+
+1. PostgreSQL をインストールします。macOS で Homebrew を使用する場合は以下のコマンドでインストールしてください。
+
+   ```bash
+   brew install postgresql
+   ```
+   
+   その他、OSに応じたインストール方法は[PostgreSQL公式サイト](https://www.postgresql.org/)を参照してください。
+
+2. PostgreSQLを起動します。
+
+   ```bash
+   brew services start postgresql
+   ```
+
+3. ターミナルでデータベースを作成します。
+
+   ```bash
+   createdb articles_db
+   ```
+
+4. テーブルを作成し、サンプルデータを挿入します。 `table_create.sql` にテーブル作成とサンプルデータ挿入のSQLスクリプトが含まれています。以下のコマンドでスクリプトを実行してください。
+
+   ```bash
+   psql -d articles_db -f table_create.sql
+   ```
+   
+   以下は `table_create.sql` の内容です。
+   
+   ```sql
+   CREATE TABLE articles (
+     id SERIAL PRIMARY KEY,
+     title VARCHAR(255) NOT NULL,
+     body TEXT,
+     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+   );
+   
+   INSERT INTO articles (title, body) VALUES ('サンプル1', '最初のサンプルメモです。');
+   INSERT INTO articles (title, body) VALUES ('サンプル2', 'ふたつめのサンプルメモです。');
+   INSERT INTO articles (title, body) VALUES ('サンプル3', '最後のサンプルメモです。');
+   ```
+   
+   スクリプトを実行することで、`articles` テーブルが作成され、サンプルデータが挿入されます。
+
 ## Usage
 
-アプリは以下のコマンドで実行します。
+データベースの準備が完了したら、アプリを使用できます。アプリは以下のコマンドで実行します。
 
 ```bash
 bundle exec ruby app.rb
 ```
 
-サーバーが起動したら、ブラウザで [http://localhost:4567/](http://localhost:4567/) にアクセスして画面を確認してください。
+サーバーが起動したら、ブラウザで [http://localhost:4567/](http://localhost:4567/) にアクセスし、先ほど挿入した3件のメモが入っていることを確認してください。
 
 停止する場合はターミナルで `Ctrl+C` を入力してください。
 
@@ -53,7 +102,7 @@ bundle exec ruby app.rb
 
 以下の内容を Gemfile に追加してください。
 
-```bash
+```ruby
 group :development do
   gem 'rubocop', require: false
   gem 'rubocop-fjord', require: false
@@ -110,4 +159,4 @@ bundle exec erb_lint --lint-all
 
 ## License
 
-このプロジェクトは [MIT ライセンス](https://opensource.org/license/MIT) のもとで公開されています。詳細は [LICENSE](./LICENSE) ファイルをご覧ください。
+このプロジェクトは [MIT ライセンス](https://opensource.org/license/MIT) のもとで公開されています。詳細は [LICENSE ファイル](./LICENSE) をご覧ください。
